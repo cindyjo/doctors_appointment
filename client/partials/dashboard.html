@@ -1,0 +1,38 @@
+<div class="container-fluid" ng-controller="appointmentsController as ac"> 
+	<div class="row">
+		<div class="col-md-12">
+			<p>{{ac.logged_patient}} is logged in</p>
+			<h3><u>Tasks</u></h3>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-10"></div>
+		<div class="col-md-2">
+			Search <input id="search" type="text" ng-model ="filter_name" placeholder ="filter...">
+		</div>
+	</div><br>
+	<div class="row">
+		<div class="col-md-12">
+			<table class="table table-striped">
+				<tr>
+					<th>Date</th>
+					<th>Time</th>
+					<th>Patient Name</th>
+					<th>Complain</th>
+				</tr>
+					<tr ng-repeat = "appointment in ac.appointments | isFuture | orderBy:'date' |filter: filter_name">
+					<td ng-bind ="appointment.date | date "></td>
+					<td ng-bind ="appointment.time | date:'shortTime'"></td>
+					<td ng-bind ="appointment.name"></td>
+					<td>{{appointment.complain}}  <button ng-show="appointment.name == ac.logged_patient" ng-click="ac.removeAppointment(appointment)" class="btn btn-default">Cancel</button></td>
+				</tr>
+			</table>
+		</div>
+	</div><br>
+	<div class="row">
+		<div class="col-md-12">
+		<a href="#/newAppoint" ><button class="btn btn-default">Add New Appointment</button></a>
+		</div>
+	</div>
+</div>
+
